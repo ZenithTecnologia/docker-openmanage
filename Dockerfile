@@ -44,6 +44,8 @@ RUN mkdir -p /run/lock/subsys \
     && dnf module -y install python39 \
     && alternatives --set python /usr/bin/python3.9 \
     && dnf clean all \
+    # Enable Managed System Login
+    && perl -pi -e 's/enableDWS=false/enableDWS=true/g' /opt/dell/srvadmin/etc/openmanage/oma/ini/omprv.ini \
     && for SVC in snmpd instsvcdrv dsm_sa_eventmgrd dsm_sa_datamgrd dsm_sa_snmpd dsm_om_connsvc; do systemctl enable $SVC.service; done \
     # Replace weak Diffie-Hellman ciphers with Elliptic-Curve Diffie-Hellman
     # Symlink in older libstorlibir for sasdupie segfault
