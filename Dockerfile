@@ -1,6 +1,7 @@
-# Use CentOS 7 base image from Docker Hub
-FROM centos:7.6.1810
-MAINTAINER Steve Kamerman "https://github.com/kamermans"
+# Use RockyLinux 8 base image from Docker Hub
+FROM rockylinux:8
+MAINTAINER Zenith Tecnologia "https://github.com/ZenithTecnologia"
+#MAINTAINER Steve Kamerman "https://github.com/kamermans"
 #MAINTAINER Jose De la Rosa "https://github.com/jose-delarosa"
 
 # Environment variables
@@ -18,7 +19,7 @@ ENV container docker
 RUN mkdir -p /run/lock/subsys \
     && echo "$USER:$PASS" | chpasswd \
     # Add OMSA repo
-    && yum -y install \
+    && dnf -y install \
         gcc wget perl passwd which tar \
         nano dmidecode strace less openssl-devel \
     # Strip systemd so it can run inside Docker
@@ -33,12 +34,12 @@ RUN mkdir -p /run/lock/subsys \
     rm -f /usr/lib/systemd/system/basic.target.wants/*; \
     rm -f /usr/lib/systemd/system/anaconda.target.wants/*; \
     wget -q -O - http://linux.dell.com/repo/hardware/dsu/bootstrap.cgi | bash \
-    && yum -y install \
+    && dnf -y install \
         net-snmp \
         srvadmin-all \
         ipmitool \
         dell-system-update \
-    && yum clean all \
+    && dnf clean all \
     && localedef -i en_US -f UTF-8 en_US.UTF-8 \
     && for SVC in snmpd instsvcdrv dsm_sa_eventmgrd dsm_sa_datamgrd dsm_sa_snmpd dsm_om_connsvc; do systemctl enable $SVC.service; done \
     # Replace weak Diffie-Hellman ciphers with Elliptic-Curve Diffie-Hellman
