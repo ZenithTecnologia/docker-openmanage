@@ -41,6 +41,7 @@ RUN mkdir -p /run/lock/subsys \
         dell-system-update \
         glibc-langpack-en \
         procps \
+    && dnf module install python39 \
     && dnf clean all \
     && for SVC in snmpd instsvcdrv dsm_sa_eventmgrd dsm_sa_datamgrd dsm_sa_snmpd dsm_om_connsvc; do systemctl enable $SVC.service; done \
     # Replace weak Diffie-Hellman ciphers with Elliptic-Curve Diffie-Hellman
