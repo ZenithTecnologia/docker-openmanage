@@ -38,7 +38,9 @@ RUN mkdir -p /run/lock/subsys \
         net-snmp \
         srvadmin-all \
         ipmitool \
-        dell-system-update glibc-langpack-en \
+        dell-system-update \
+        glibc-langpack-en \
+        procps \
     && dnf clean all \
     && for SVC in snmpd instsvcdrv dsm_sa_eventmgrd dsm_sa_datamgrd dsm_sa_snmpd dsm_om_connsvc; do systemctl enable $SVC.service; done \
     # Replace weak Diffie-Hellman ciphers with Elliptic-Curve Diffie-Hellman
