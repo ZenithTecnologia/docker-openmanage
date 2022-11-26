@@ -42,6 +42,7 @@ RUN mkdir -p /run/lock/subsys \
         glibc-langpack-en \
         procps \
     && dnf module -y install python39 \
+    && alternatives --set python /usr/bin/python3.9 \
     && dnf clean all \
     && for SVC in snmpd instsvcdrv dsm_sa_eventmgrd dsm_sa_datamgrd dsm_sa_snmpd dsm_om_connsvc; do systemctl enable $SVC.service; done \
     # Replace weak Diffie-Hellman ciphers with Elliptic-Curve Diffie-Hellman
