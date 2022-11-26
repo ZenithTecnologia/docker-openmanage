@@ -38,9 +38,8 @@ RUN mkdir -p /run/lock/subsys \
         net-snmp \
         srvadmin-all \
         ipmitool \
-        dell-system-update \
+        dell-system-update glibc-langpack-en \
     && dnf clean all \
-    && localedef -i en_US -f UTF-8 en_US.UTF-8 \
     && for SVC in snmpd instsvcdrv dsm_sa_eventmgrd dsm_sa_datamgrd dsm_sa_snmpd dsm_om_connsvc; do systemctl enable $SVC.service; done \
     # Replace weak Diffie-Hellman ciphers with Elliptic-Curve Diffie-Hellman
     # Symlink in older libstorlibir for sasdupie segfault
